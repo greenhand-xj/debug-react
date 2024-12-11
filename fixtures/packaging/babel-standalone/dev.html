@@ -13,18 +13,20 @@
 
         useEffect(() => {
           const intervalId = setTimeout(() => {
+            debugger
             setCount(prevCount => prevCount + 1);
-          }, 4000);
+          }, 2000);
 
           return () => clearInterval(intervalId); // 清理定时器
         }, []);
 
         return (
-          <button>Click me {count}</button>
+          <button onClick={() => setCount(count + 1)}>Click me {count}</button>
         );
       }
 
       root.render(<App />);
+      // root.render(<h1>hello world</h1>);
     </script>
   </body>
 </html>
