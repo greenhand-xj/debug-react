@@ -10,7 +10,7 @@
       const { useState, useEffect } = React;
       function App() {
         const [count, setCount] = useState(0);
-
+        console.log('count',count)
         useEffect(() => {
           const intervalId = setTimeout(function triggerFunction(){
             debugger

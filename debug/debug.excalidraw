@@ -15386,7 +15386,7 @@
       "containerId": "QsxCf8eBLnchtNKYtDBML",
       "originalText": "任务的数据结构",
       "lineHeight": 1.2,
-      "baseline": 36
+      "baseline": 35
     },
     {
       "type": "text",
@@ -16368,7 +16368,7 @@
       "containerId": "1nCxo8LVP1Xiu_FFQdCMa",
       "originalText": "是否是延时任务？",
       "lineHeight": 1.2,
-      "baseline": 44
+      "baseline": 43
     },
     {
       "type": "arrow",
@@ -16465,7 +16465,7 @@
       "containerId": "suneeVTH0lGUfvz1PPlr_",
       "originalText": "YES",
       "lineHeight": 1.2,
-      "baseline": 20
+      "baseline": 19
     },
     {
       "type": "arrow",
@@ -16562,7 +16562,7 @@
       "containerId": "a7iOU1H4AIUcXhJDPxd3R",
       "originalText": "NO",
       "lineHeight": 1.2,
-      "baseline": 20
+      "baseline": 19
     },
     {
       "type": "arrow",
@@ -17396,7 +17396,7 @@
       "containerId": "pwLKTfQrLHDr8XoLjvF-I",
       "originalText": "while(root!==null)",
       "lineHeight": 1.2,
-      "baseline": 44
+      "baseline": 43
     },
     {
       "type": "arrow",
@@ -17549,7 +17549,7 @@
       "containerId": "QnN4Vl0sLJIi-GQRLHdZK",
       "originalText": "YES",
       "lineHeight": 1.2,
-      "baseline": 20
+      "baseline": 19
     },
     {
       "type": "arrow",
@@ -17657,8 +17657,8 @@
     },
     {
       "type": "arrow",
-      "version": 645,
-      "versionNonce": 1592437674,
+      "version": 648,
+      "versionNonce": 1749259318,
       "isDeleted": false,
       "id": "TOqLBTZxAfOlUai1ecl4c",
       "fillStyle": "solid",
@@ -17668,7 +17668,7 @@
       "opacity": 100,
       "angle": 0,
       "x": 3439.325396825387,
-      "y": 1081.0555555555543,
+      "y": 1077.0555555555543,
       "strokeColor": "#f08c00",
       "backgroundColor": "transparent",
       "width": 1022.6666666666665,
@@ -17685,17 +17685,17 @@
           "id": "DgCC-b4aPsSzL1fsvWcW3"
         }
       ],
-      "updated": 1733474074594,
+      "updated": 1734514815453,
       "link": null,
       "locked": false,
       "startBinding": {
         "elementId": "DbijBVZ0Q0ldHnptRvMbh",
-        "focus": 0.8435152490519865,
+        "focus": 0.8245105184726255,
         "gap": 4.751713355078209
       },
       "endBinding": {
         "elementId": "sByMT0RhLzMdN1mZYSdUR",
-        "focus": 0.969133367781344,
+        "focus": 0.9854350573825782,
         "gap": 6.724477121112159
       },
       "lastCommittedPoint": null,
