@@ -1,32 +1,54 @@
 <html>
-  <body>
-    <script src="../../../build/oss-stable/react/umd/react.development.js"></script>
-    <script src="../../../build/oss-stable/react-dom/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>
-    <div id="container"></div>
-    <script type="text/babel">
-      // 使用 createRoot的方式
-      const root = ReactDOM.createRoot(document.getElementById('container'));
-      const { useState, useEffect } = React;
-      function App() {
-        const [count, setCount] = useState(0);
-        console.log('count',count)
-        useEffect(() => {
-          const intervalId = setTimeout(function triggerFunction(){
-            debugger
-            setCount(prevCount => prevCount + 1);
-          }, 2000);
 
-          return () => clearInterval(intervalId); // 清理定时器
-        }, []);
+<body>
+  <script src="../../../build/oss-stable/react/umd/react.development.js"></script>
+  <script src="../../../build/oss-stable/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+  <div id="container"></div>
+  <script type="text/babel">
+    // 使用 createRoot的方式
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    const { useState, useEffect, useRef } = React;
+    // function App() {
+    //   const [count, setCount] = useState(0);
+    //   console.log('count',count)
+    //   useEffect(() => {
+    //     const intervalId = setTimeout(function triggerFunction(){
+    //       debugger
+    //       setCount(prevCount => prevCount + 1);
+    //     }, 2000);
 
-        return (
-          <button onClick={() => setCount(count + 1)}>Click me {count}</button>
-        );
-      }
+    //     return () => clearInterval(intervalId); // 清理定时器
+    //   }, []);
 
-      root.render(<App />);
-      // root.render(<h1>hello world</h1>);
-    </script>
-  </body>
+    //   return (
+    //     <button onClick={() => setCount(count + 1)}>Click me {count}</button>
+    //   );
+    // }
+
+    function usePrevValue(value) {
+      const prev = useRef(null);
+      useEffect(() => {
+        prev.current = value;
+      }, [value]);
+      return [prev.current];
+    }
+
+    function App(props) {
+      const [count, setCount] = useState(0);
+      console.log(count)
+      const [prev] = usePrevValue(count);
+      console.log(prev)
+      return (
+        <div className='App'>
+          <button onClick={() => setCount(count + 1)}>{count}</button>
+          <button>{prev}</button>
+        </div>
+      );
+    }
+    root.render(<App />);
+    // root.render(<h1>hello world</h1>);
+  </script>
+</body>
+
 </html>
