@@ -26,25 +26,53 @@
     //   );
     // }
 
-    function usePrevValue(value) {
-      const prev = useRef(null);
-      useEffect(() => {
-        prev.current = value;
-      }, [value]);
-      return [prev.current];
-    }
+    // function usePrevValue(value) {
+    //   const prev = useRef(null);
+    //   useEffect(() => {
+    //     prev.current = value;
+    //   }, [value]);
+    //   return [prev.current];
+    // }
 
-    function App(props) {
-      const [count, setCount] = useState(0);
-      console.log(count)
-      const [prev] = usePrevValue(count);
-      console.log(prev)
-      return (
-        <div className='App'>
-          <button onClick={() => setCount(count + 1)}>{count}</button>
-          <button>{prev}</button>
-        </div>
-      );
+    // function App(props) {
+    //   const [count, setCount] = useState(0);
+    //   console.log(count)
+    //   const [prev] = usePrevValue(count);
+    //   console.log(prev)
+    //   return (
+    //     <div className='App'>
+    //       <button onClick={() => setCount(count + 1)}>{count}</button>
+    //       <button>{prev}</button>
+    //     </div>
+    //   );
+    // }
+    function App() {
+      const [count, setCount] = useState(1);
+      console.log(1);
+
+      useEffect(() => {
+        console.log(2);
+        return () => {
+          console.log(3);
+        };
+      }, [count]);
+
+      useEffect(() => {
+        console.log(4);
+        setCount((count) => count + 1);
+      }, []);
+
+      return <Child count={count} />;
+    }
+    function Child({ count }) {
+      useEffect(() => {
+        console.log(5);
+        return () => {
+          console.log(6);
+        };
+      }, [count]);
+
+      return <span>hello world</span>;
     }
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
