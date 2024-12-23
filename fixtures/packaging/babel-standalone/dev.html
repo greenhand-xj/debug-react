@@ -82,18 +82,29 @@
     // }
     //#endregion
 
+    //#region
+    // function App() {
+    //   const [count, setCount] = useState(1);
+
+    //   const handleClick = () => {
+    //     setCount((count) => count + 1);
+    //     setCount((count) => count + 1);
+    //   };
+
+    //   return (
+    //     <div>
+    //       <button onClick={handleClick}>click me {count}</button>
+    //     </div>
+    //   )
+    // }
+    //#endregion
     function App() {
       const [count, setCount] = useState(1);
-
-      const handleClick = () => {
-        setCount((count) => count + 1);
-        setCount((count) => count + 1);
-      };
-
+      useEffect(() => {
+        console.log(count);
+      }, [])
       return (
-        <div>
-          <button onClick={handleClick}>click me {count}</button>
-        </div>
+        <button onClick={() => setCount(count + 1)}>click me {count}</button>
       )
     }
     root.render(<App />);
