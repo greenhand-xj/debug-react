@@ -8,7 +8,7 @@
   <script type="text/babel">
     // 使用 createRoot的方式
     const root = ReactDOM.createRoot(document.getElementById('container'));
-    const { useState, useEffect, useRef } = React;
+    const { useState, useEffect, useRef, useReducer } = React;
     //#region
     // function App() {
     //   const [count, setCount] = useState(0);
@@ -98,13 +98,42 @@
     //   )
     // }
     //#endregion
+    let initialState = (() => {
+      //死循环2000ms
+      let start = Date.now()
+      while (Date.now() - start < 2000) { }
+      return {
+        count: 0
+      }
+    })()
+
+    function counterReducer(state, action) {
+      switch (action.type) {
+        case 'increment':
+          return { count: state.count + action.payload }
+        case 'decrement':
+          return { count: state.count - action.payload }
+        default:
+          throw new Error()
+      }
+    }
+
     function App() {
-      const [count, setCount] = useState(1);
-      useEffect(() => {
-        console.log(count);
-      }, [])
+      const [state, dispatch] = useReducer(counterReducer, { count: 0 }, (initialState) => {
+        //死循环2000ms iife
+        let start = Date.now()
+        while (Date.now() - start < 2000) { }
+        return {
+          count: initialState.count + 2
+        }
+      });
+      const handleClick = () => {
+        debugger
+        dispatch({ type: 'increment', payload: 1 });
+        dispatch({ type: 'decrement', payload: 2 });
+      }
       return (
-        <button onClick={() => setCount(count + 1)}>click me {count}</button>
+        <button onClick={handleClick}>{state.count}</button>
       )
     }
     root.render(<App />);
