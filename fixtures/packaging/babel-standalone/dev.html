@@ -110,7 +110,7 @@
     function counterReducer(state, action) {
       switch (action.type) {
         case 'increment':
-          return { count: state.count + action.payload }
+          return state.count + action.payload
         case 'decrement':
           return { count: state.count - action.payload }
         default:
@@ -121,8 +121,8 @@
     function App() {
       const [state, dispatch] = useReducer(counterReducer, { count: 0 }, (initialState) => {
         //死循环2000ms iife
-        let start = Date.now()
-        while (Date.now() - start < 2000) { }
+        // let start = Date.now()
+        // while (Date.now() - start < 2000) { }
         return {
           count: initialState.count + 2
         }
