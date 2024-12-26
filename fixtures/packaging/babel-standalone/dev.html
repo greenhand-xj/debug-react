@@ -98,44 +98,55 @@
     //   )
     // }
     //#endregion
-    let initialState = (() => {
-      //死循环2000ms
-      let start = Date.now()
-      while (Date.now() - start < 2000) { }
-      return {
-        count: 0
-      }
-    })()
+    //#region
+    // let initialState = (() => {
+    //   //死循环2000ms
+    //   let start = Date.now()
+    //   while (Date.now() - start < 2000) { }
+    //   return {
+    //     count: 0
+    //   }
+    // })()
 
-    function counterReducer(state, action) {
-      switch (action.type) {
-        case 'increment':
-          return state.count + action.payload
-        case 'decrement':
-          return { count: state.count - action.payload }
-        default:
-          throw new Error()
-      }
-    }
+    // function counterReducer(state, action) {
+    //   switch (action.type) {
+    //     case 'increment':
+    //       return state.count + action.payload
+    //     case 'decrement':
+    //       return { count: state.count - action.payload }
+    //     default:
+    //       throw new Error()
+    //   }
+    // }
+
+    // function App() {
+    //   const [state, dispatch] = useReducer(counterReducer, { count: 0 }, (initialState) => {
+    //     //死循环2000ms iife
+    //     // let start = Date.now()
+    //     // while (Date.now() - start < 2000) { }
+    //     return {
+    //       count: initialState.count + 2
+    //     }
+    //   });
+    //   const handleClick = () => {
+    //     debugger
+    //     dispatch({ type: 'increment', payload: 1 });
+    //     dispatch({ type: 'decrement', payload: 2 });
+    //   }
+    //   return (
+    //     <button onClick={handleClick}>{state.count}</button>
+    //   )
+    // }
+    //#endregion
 
     function App() {
-      const [state, dispatch] = useReducer(counterReducer, { count: 0 }, (initialState) => {
-        //死循环2000ms iife
-        // let start = Date.now()
-        // while (Date.now() - start < 2000) { }
-        return {
-          count: initialState.count + 2
-        }
-      });
-      const handleClick = () => {
-        debugger
-        dispatch({ type: 'increment', payload: 1 });
-        dispatch({ type: 'decrement', payload: 2 });
-      }
+      const [search, setSearch] = useState('');
+      const handleChange = (e) => setSearch(e.target.value);
       return (
-        <button onClick={handleClick}>{state.count}</button>
+        <input type="text" value={search} onChange={handleChange} />
       )
     }
+
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
   </script>
