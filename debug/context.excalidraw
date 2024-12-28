@@ -3849,17 +3849,21 @@
         "type": 2
       },
       "seed": 962839203,
-      "version": 42,
-      "versionNonce": 279466605,
+      "version": 60,
+      "versionNonce": 884430787,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1735392823197,
+      "updated": 1735392825444,
       "link": null,
       "locked": false,
       "points": [
         [
           0,
           0
+        ],
+        [
+          291.456442105482,
+          67.93345643060115
         ],
         [
           350.6242912547159,
@@ -3869,12 +3873,12 @@
       "lastCommittedPoint": null,
       "startBinding": {
         "elementId": "dZnDnWVay0DL8M9suqX2I",
-        "focus": -0.8011958283637459,
+        "focus": -0.4321827440624779,
         "gap": 8.65535632598744
       },
       "endBinding": {
         "elementId": "e3w0W1bOxWT3vDBCwhPcH",
-        "focus": 0.4457856112789331,
+        "focus": 0.16397563500441387,
         "gap": 20.59720712474632
       },
       "startArrowhead": null,
