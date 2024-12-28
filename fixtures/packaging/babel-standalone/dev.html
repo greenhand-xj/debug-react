@@ -8,7 +8,7 @@
   <script type="text/babel">
     // 使用 createRoot的方式
     const root = ReactDOM.createRoot(document.getElementById('container'));
-    const { useState, useEffect, useRef, useReducer } = React;
+    const { useState, useEffect, useRef, useReducer, useContext, createContext } = React;
     //#region
     // function App() {
     //   const [count, setCount] = useState(0);
@@ -139,14 +139,61 @@
     // }
     //#endregion
 
-    function App() {
-      const [search, setSearch] = useState('');
-      const handleChange = (e) => setSearch(e.target.value);
+    // #region
+    // function App() {
+    //   const [search, setSearch] = useState('');
+    //   const handleChange = (e) => setSearch(e.target.value);
+    //   return (
+    //     <input type="text" value={search} onChange={handleChange} />
+    //   )
+    // }
+    // #endregion
+
+    debugger
+    const ThemeContext = createContext(null);
+    function Form({ children }) {
       return (
-        <input type="text" value={search} onChange={handleChange} />
+        <Panel title="Welcome">
+          <Button>Sign up</Button>
+          <Button>Log in</Button>
+        </Panel>
+      );
+    }
+
+    function Panel({ title, children }) {
+      const theme = useContext(ThemeContext);
+      return (
+        <section>
+          <h1>{title}--{theme}</h1>
+          {children}
+        </section>
       )
     }
 
+    function Button({ children }) {
+      const theme = useContext(ThemeContext);
+      return (
+        <button>
+          {children}--{theme}
+        </button>
+      );
+    }
+
+    function App() {
+      const [theme, setTheme] = useState('light');
+      return (
+        <ThemeContext.Provider value={theme}>
+          <Form />
+          <input
+            type="checkbox"
+            checked={theme === 'dark'}
+            onChange={(e) => {
+              setTheme(e.target.checked ? 'dark' : 'light')
+            }}
+          />
+        </ThemeContext.Provider>
+      );
+    }
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
   </script>
