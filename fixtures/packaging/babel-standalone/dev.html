@@ -234,17 +234,32 @@
     // }
     // #endregion
 
+    //#region
+    // function App() {
+    //   const [count, setCount] = useState(0);
+    //   const callbackFn = useCallback(() => {
+    //     console.log('useCallbackFn执行了')
+    //   }, [])
+    //   const double = useMemo(() => {
+    //     console.log("useMemoFn执行了")
+    //     return count * 2
+    //   }, [count])
+    //   return (
+    //     <button onClick={() => setCount(count + 1)}>Click me {count} {double}</button>
+    //   )
+    // }
+    //#endregion
+
     function App() {
-      const [count, setCount] = useState(0);
+      const [count, setCount] = useState(-1);
       const callbackFn = useCallback(() => {
-        console.log('useCallbackFn执行了')
-      }, [])
-      const double = useMemo(() => {
-        console.log("useMemoFn执行了")
-        return count * 2
+        console.log(count)
       }, [count])
       return (
-        <button onClick={() => setCount(count + 1)}>Click me {count} {double}</button>
+        <button onClick={() => {
+          setCount(count + 1)
+          callbackFn()
+        }}>Click me {count}</button>
       )
     }
     root.render(<App />);
