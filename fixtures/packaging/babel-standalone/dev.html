@@ -8,7 +8,7 @@
   <script type="text/babel">
     // 使用 createRoot的方式
     const root = ReactDOM.createRoot(document.getElementById('container'));
-    const { useState, useEffect, useRef, useReducer, useContext, createContext } = React;
+    const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo } = React;
     //#region
     // function App() {
     //   const [count, setCount] = useState(0);
@@ -195,42 +195,58 @@
     //   );
     // }
     // #endregion
-    function Child(props) {
-      console.log('Child组件运行了')
-      return (
-        <div className='Child'>
-          <div>Child子组件</div>
-          <div>name: {props.name}</div>
-        </div>
-      )
-    }
+    // #region
+    // function Child(props) {
+    //   console.log('Child组件运行了')
+    //   return (
+    //     <div className='Child'>
+    //       <div ref={ref}>Child子组件</div>
+    //       <div>name: {props.name}</div>
+    //     </div>
+    //   )
+    // }
+    // const NewChild = React.memo(Child)
 
 
-    function MyFun(props) {
-      console.log('MyFun组件运行了')
-      const [count, setCount] = useState(1)
-      function handleClick() {
-        setCount(count + 1)
-      }
-      return (
-        <div className='MyFun'>
-          <div>state: {count}</div>
-          <Child name='Child'></Child>
-          <button onClick={handleClick}>更新</button>
-        </div>
-      )
-    }
+    // function MyFun(props) {
+    //   console.log('MyFun组件运行了')
+    //   const [count, setCount] = useState(1)
+    //   function handleClick() {
+    //     setCount(count + 1)
+    //   }
+    //   return (
+    //     <div className='MyFun'>
+    //       <div>state: {count}</div>
+    //       <NewChild name='NewChild' setCount={setCount}></NewChild>
+    //       <button onClick={handleClick}>更新</button>
+    //     </div>
+    //   )
+    // }
+
+    // function App() {
+    //   console.log('App组件运行了')
+    //   return (
+    //     <div className="App">
+    //       <div>react源码调试</div>
+    //       <MyFun name='MyFun'></MyFun>
+    //     </div>
+    //   );
+    // }
+    // #endregion
 
     function App() {
-      console.log('App组件运行了')
+      const [count, setCount] = useState(0);
+      const callbackFn = useCallback(() => {
+        console.log('useCallbackFn执行了')
+      }, [])
+      const double = useMemo(() => {
+        console.log("useMemoFn执行了")
+        return count * 2
+      }, [count])
       return (
-        <div className="App">
-          <div>react源码调试</div>
-          <MyFun name='MyFun'></MyFun>
-        </div>
-      );
+        <button onClick={() => setCount(count + 1)}>Click me {count} {double}</button>
+      )
     }
-
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
   </script>
