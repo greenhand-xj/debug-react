@@ -149,51 +149,88 @@
     // }
     // #endregion
 
-    debugger
-    const ThemeContext = createContext(null);
-    function Form({ children }) {
-      return (
-        <Panel title="Welcome">
-          <Button>Sign up</Button>
-          <Button>Log in</Button>
-        </Panel>
-      );
-    }
+    // #region
+    // const ThemeContext = createContext(null);
+    // function Form({ children }) {
+    //   return (
+    //     <Panel title="Welcome">
+    //       <Button>Sign up</Button>
+    //       <Button>Log in</Button>
+    //     </Panel>
+    //   );
+    // }
 
-    function Panel({ title, children }) {
-      const theme = useContext(ThemeContext);
+    // function Panel({ title, children }) {
+    //   const theme = useContext(ThemeContext);
+    //   return (
+    //     <section>
+    //       <h1>{title}--{theme}</h1>
+    //       {children}
+    //     </section>
+    //   )
+    // }
+
+    // function Button({ children }) {
+    //   const theme = useContext(ThemeContext);
+    //   return (
+    //     <button>
+    //       {children}--{theme}
+    //     </button>
+    //   );
+    // }
+
+    // function App() {
+    //   const [theme, setTheme] = useState('light');
+    //   return (
+    //     <ThemeContext.Provider value={theme}>
+    //       <Form />
+    //       <input
+    //         type="checkbox"
+    //         checked={theme === 'dark'}
+    //         onChange={(e) => {
+    //           setTheme(e.target.checked ? 'dark' : 'light')
+    //         }}
+    //       />
+    //     </ThemeContext.Provider>
+    //   );
+    // }
+    // #endregion
+    function Child(props) {
+      console.log('Child组件运行了')
       return (
-        <section>
-          <h1>{title}--{theme}</h1>
-          {children}
-        </section>
+        <div className='Child'>
+          <div>Child子组件</div>
+          <div>name: {props.name}</div>
+        </div>
       )
     }
 
-    function Button({ children }) {
-      const theme = useContext(ThemeContext);
+
+    function MyFun(props) {
+      console.log('MyFun组件运行了')
+      const [count, setCount] = useState(1)
+      function handleClick() {
+        setCount(count + 1)
+      }
       return (
-        <button>
-          {children}--{theme}
-        </button>
-      );
+        <div className='MyFun'>
+          <div>state: {count}</div>
+          <Child name='Child'></Child>
+          <button onClick={handleClick}>更新</button>
+        </div>
+      )
     }
 
     function App() {
-      const [theme, setTheme] = useState('light');
+      console.log('App组件运行了')
       return (
-        <ThemeContext.Provider value={theme}>
-          <Form />
-          <input
-            type="checkbox"
-            checked={theme === 'dark'}
-            onChange={(e) => {
-              setTheme(e.target.checked ? 'dark' : 'light')
-            }}
-          />
-        </ThemeContext.Provider>
+        <div className="App">
+          <div>react源码调试</div>
+          <MyFun name='MyFun'></MyFun>
+        </div>
       );
     }
+
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
   </script>
