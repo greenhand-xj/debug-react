@@ -250,18 +250,38 @@
     // }
     //#endregion
 
-    function App() {
-      const [count, setCount] = useState(-1);
-      const callbackFn = useCallback(() => {
-        console.log(count)
-      }, [count])
+    //#region 
+    // function App() {
+    //   const [count, setCount] = useState(-1);
+    //   const callbackFn = useCallback(() => {
+    //     console.log(count)
+    //   }, [count])
+    //   return (
+    //     <button onClick={() => {
+    //       setCount(count + 1)
+    //       callbackFn()
+    //     }}>Click me {count}</button>
+    //   )
+    // }
+    //#endregion
+
+    //#region 
+    function Child() {
+      console.log('child render')
       return (
-        <button onClick={() => {
-          setCount(count + 1)
-          callbackFn()
-        }}>Click me {count}</button>
+        <span>child</span>
       )
     }
+    function App() {
+      const [count, setCount] = useState(0);
+      console.log('App render', count)
+      return (
+        <div onClick={() => setCount(1)}>
+          <Child />
+        </div>
+      )
+    }
+    //#endregion
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
   </script>
