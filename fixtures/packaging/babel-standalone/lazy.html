@@ -1,0 +1,48 @@
+<html>
+
+<body>
+  <script src="../../../build/oss-stable/react/umd/react.development.js"></script>
+  <script src="../../../build/oss-stable/react-dom/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+  <div id="container"></div>
+  <script type="module">
+    // 使用 createRoot的方式
+    const root = ReactDOM.createRoot(document.getElementById('container'));
+    const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo, Suspense, lazy } = React;
+    // 添加一个固定的延迟时间，以便你可以看到加载状态
+    function delayForDemo(promise) {
+      return new Promise(resolve => {
+        setTimeout(resolve, 2000);
+      }).then(() => promise);
+    }
+
+    const Preview = lazy(() => delayForDemo(import('./preview.js')))
+
+    function App() {
+      const [showPreview, setShowPreview] = useState(false);
+      return (
+        React.createElement(
+          "div",
+          null,
+          React.createElement("input", {
+            type: "checkbox",
+            checked: showPreview,
+            onChange: e => setShowPreview(e.target.checked)
+          }),
+          showPreview
+            ? React.createElement(
+              React.Suspense,
+              { fallback: React.createElement("div", null, "loading...") },
+              React.createElement(Preview, null)
+            )
+            : null
+        )
+      );
+    }
+    root.render(React.createElement(App, null));
+    // root.render(<App />);
+    // root.render(<h1>hello world</h1>);
+  </script>
+</body>
+
+</html>
