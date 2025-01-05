@@ -8,7 +8,7 @@
   <script type="text/babel">
     // 使用 createRoot的方式
     const root = ReactDOM.createRoot(document.getElementById('container'));
-    const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo, Suspense } = React;
+    const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo, Suspense, use } = React;
     //#region
     // function App() {
     //   const [count, setCount] = useState(0);
@@ -283,53 +283,72 @@
     // }
     //#endregion
 
-    function simulateFetch() {
+    //#region
+    // function simulateFetch() {
+    //   return new Promise((resolve) => {
+    //     setTimeout(() => {
+    //       resolve('这是模拟的数据！');
+    //     }, 2000); // 2秒后返回数据
+    //   });
+    // }
+
+    // function wrapPromise(promise) {
+    //   let status = 'pending';
+    //   let response;
+
+    //   const suspender = promise
+    //     .then(res => {
+    //       status = 'success';
+    //       response = res;
+    //     });
+
+    //   return {
+    //     read() {
+    //       if (status === 'pending') {
+    //         throw suspender; // 抛出 promise
+    //       } else {
+    //         return response; // 返回成功的结果
+    //       }
+    //     }
+    //   };
+    // }
+
+    // const resource = wrapPromise(simulateFetch());
+
+    // function DataDisplay() {
+    //   const data = resource.read(); // 读取数据
+    //   return <div>{data}</div>;
+    // }
+
+    // function App() {
+    //   return (
+    //     <div>
+    //       <h1>使用 React Suspense 的简单示例</h1>
+    //       <Suspense fallback={<div>加载中...</div>}>
+    //         <DataDisplay />
+    //       </Suspense>
+    //     </div>
+    //   );
+    // }
+    //#endregion
+    function fetchMessage() {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve('这是模拟的数据！');
-        }, 2000); // 2秒后返回数据
+          resolve('hello world');
+        }, 1000);
       });
     }
-
-    function wrapPromise(promise) {
-      let status = 'pending';
-      let response;
-
-      const suspender = promise
-        .then(res => {
-          status = 'success';
-          response = res;
-        });
-
-      return {
-        read() {
-          if (status === 'pending') {
-            throw suspender; // 抛出 promise
-          } else {
-            return response; // 返回成功的结果
-          }
-        }
-      };
+    function Message() {
+      const message = use(fetchMessage());
+      return <h1>{message}</h1>
     }
-
-    const resource = wrapPromise(simulateFetch());
-
-    function DataDisplay() {
-      const data = resource.read(); // 读取数据
-      return <div>{data}</div>;
-    }
-
     function App() {
       return (
-        <div>
-          <h1>使用 React Suspense 的简单示例</h1>
-          <Suspense fallback={<div>加载中...</div>}>
-            <DataDisplay />
-          </Suspense>
-        </div>
-      );
+        <Suspense fallback={<h2>🌀 Loading...</h2>}>
+          <Message />
+        </Suspense>
+      )
     }
-
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
   </script>
