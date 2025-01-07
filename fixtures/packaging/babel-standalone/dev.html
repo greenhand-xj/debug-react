@@ -9,6 +9,7 @@
     // 使用 createRoot的方式
     const root = ReactDOM.createRoot(document.getElementById('container'));
     const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo, Suspense, use } = React;
+    const { createPortal } = ReactDOM
     //#region
     // function App() {
     //   const [count, setCount] = useState(0);
@@ -331,23 +332,37 @@
     //   );
     // }
     //#endregion
-    function fetchMessage() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve('hello world');
-        }, 1000);
-      });
-    }
-    function Message() {
-      const message = use(fetchMessage());
-      return <h1>{message}</h1>
-    }
+    //#region
+    // function fetchMessage() {
+    //   return new Promise((resolve) => {
+    //     setTimeout(() => {
+    //       resolve('hello world');
+    //     }, 1000);
+    //   });
+    // }
+    // function Message() {
+    //   const message = use(fetchMessage());
+    //   return <h1>{message}</h1>
+    // }
+    // function App() {
+    //   return (
+    //     <Suspense fallback={<h2>🌀 Loading...</h2>}>
+    //       <Message />
+    //     </Suspense>
+    //   )
+    // }
+    //#endregion
+
     function App() {
       return (
-        <Suspense fallback={<h2>🌀 Loading...</h2>}>
-          <Message />
-        </Suspense>
-      )
+        <div style={{ border: '2px solid black' }}>
+          <p>这个子节点被放置在父节点 div 中。</p>
+          {createPortal(
+            <p>这个子节点被放置在 document body 中。</p>,
+            document.body
+          )}
+        </div>
+      );
     }
     root.render(<App />);
     // root.render(<h1>hello world</h1>);
