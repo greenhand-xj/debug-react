@@ -8,7 +8,7 @@
   <script type="text/babel">
     // 使用 createRoot的方式
     const root = ReactDOM.createRoot(document.getElementById('container'));
-    const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo, Suspense, use } = React;
+    const { useState, useEffect, useRef, useReducer, useContext, createContext, useCallback, useMemo, Suspense, use, startTransition } = React;
     const { createPortal } = ReactDOM
     //#region
     // function App() {
@@ -353,6 +353,7 @@
     // }
     //#endregion
 
+    //#region
     function App() {
       return (
         <div style={{ border: '2px solid black' }}>
@@ -361,6 +362,38 @@
             <p>这个子节点被放置在 document body 中。</p>,
             document.body
           )}
+        </div>
+      );
+    }
+    //#endregion
+    function App() {
+      const [inputValue, setInputValue] = useState('');
+      const [items, setItems] = useState([]);
+
+      const handleChange = (e) => {
+        const value = e.target.value;
+        setInputValue(value);
+
+        // 使用 startTransition 来标记状态更新为非阻塞
+        startTransition(() => {
+          const newItems = Array.from({ length: 1000 }, (_, index) => `${value} - Item ${index + 1}`);
+          setItems(newItems);
+        });
+      };
+
+      return (
+        <div>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleChange}
+            placeholder="输入内容..."
+          />
+          <div>
+            {items.map((item, index) => (
+              <div key={index}>{item}</div>
+            ))}
+          </div>
         </div>
       );
     }
