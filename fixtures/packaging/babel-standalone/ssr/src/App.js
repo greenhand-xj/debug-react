@@ -1,16 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 const App = () => {
-  return React.createElement(
-    'div',
-    null,
-    React.createElement('h1', null, 'Hello, SSR!'),
-    React.createElement(
-      'p',
-      null,
-      'This is a simple server-side rendered React application.',
-    ),
-  )
-}
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <h1>Hello, React SSR!</h1>
+      <button onClick={() => setCount(count + 1)}>{count}</button>
+    </div>
+  );
+};
 
-export default App
+export default App; 

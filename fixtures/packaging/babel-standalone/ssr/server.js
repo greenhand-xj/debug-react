@@ -1,28 +1,39 @@
-// require('@babel/register') // 启用 Babel 运行时转译
-import express from 'express'
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import App from './src/App.js'
-const app = express()
+import express from 'express';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import App from './src/App.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'dist/public')));
+
+// 读取资源清单
+const manifest = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'dist/public/manifest.json'), 'utf-8')
+);
 
 app.get('/', (req, res) => {
-  const appString = ReactDOMServer.renderToString(React.createElement(App))
-  const html = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>React SSR Example</title>
-        </head>
-        <body>
-            <div id="root">${appString}</div>
-        </body>
-        </html>
-    `
-  res.send(html)
-})
+  const appString = renderToString(<App />);
+  const html = `<!DOCTYPE html>
+    <html>
+      <head>
+        <title>React SSR Example</title>
+      </head>
+      <body>
+        <div id="root">${appString}</div>
+        <script src="${manifest['main.js']}"></script>
+      </body>
+    </html>`;
+  res.send(html);
+});
 
-app.listen(3000, () => {
-  console.log('Server started on http://localhost:3000')
-})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
