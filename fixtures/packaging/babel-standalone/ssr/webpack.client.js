@@ -1,16 +1,17 @@
-const path = require('path');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const path = require('path')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 
 module.exports = {
   name: 'client',
   target: 'web',
   mode: 'development',
   entry: './src/index.js',
+  devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist/public'),
     filename: 'bundle.[contenthash].js',
     publicPath: '/',
-    clean: true
+    clean: true,
   },
   module: {
     rules: [
@@ -22,19 +23,19 @@ module.exports = {
           options: {
             presets: [
               '@babel/preset-env',
-              ['@babel/preset-react', { runtime: 'automatic' }]
-            ]
-          }
-        }
-      }
-    ]
+              ['@babel/preset-react', { runtime: 'automatic' }],
+            ],
+          },
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new WebpackManifestPlugin({
-      fileName: 'manifest.json'
-    })
-  ]
-};
+      fileName: 'manifest.json',
+    }),
+  ],
+}
